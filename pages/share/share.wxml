@@ -1,0 +1,5 @@
+<!--pages/share/share.wxml-->
+<view id='wechat_share'>
+  <button open-type="share">点击分享</button>
+  <button bindtap="shareImage">点击生成图片</button>
+</view>
