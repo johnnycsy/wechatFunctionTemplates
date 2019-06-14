@@ -1,5 +1,5 @@
 // pages/share/share.js
-const app=new getApp();
+const app = new getApp();
 var that;
 Page({
 
@@ -7,7 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    portrait_temp: '',
+    bgPath: '../../../utils/image/background.jpg',
+    qrcode_temp: '../../../utils/image/qr.png',
+    windowWidth: 400,
+    windowHeight: 600,
+    qrcode_temp: '../../../utils/image/qr.png',
   },
 
   /**
@@ -73,6 +78,7 @@ Page({
    * 分享事件
    */
   shareImage(event) {
+    //缓存canvas绘制小程序二维码
     that.drawImage();
     wx.hideLoading();
     setTimeout(function() {
@@ -82,9 +88,9 @@ Page({
   drawImage() {
     //绘制canvas图片    
     const ctx = wx.createCanvasContext('myCanvas')
-    var bgPath = '../../../images/share_bg.png'
+    var bgPath = that.data.bgPath
     var portraitPath = that.data.portrait_temp
-    var hostNickname = app.globalData.userInfo.nickName
+    var hostNickname = 'test'
 
     var qrPath = that.data.qrcode_temp
     var windowWidth = that.data.windowWidth
@@ -122,6 +128,7 @@ Page({
   },
   canvasToImage() {
     var that = this
+    console.log()
     wx.canvasToTempFilePath({
       x: 0,
       y: 0,
@@ -133,7 +140,7 @@ Page({
       success: function(res) {
         console.log('朋友圈分享图生成成功:' + res.tempFilePath)
         wx.previewImage({
-          current: res.tempFilePath, // 当前显示图片的http链接
+          current: 'www.ooago.com', // 当前显示图片的http链接
           urls: [res.tempFilePath] // 需要预览的图片http链接列表
         })
       },

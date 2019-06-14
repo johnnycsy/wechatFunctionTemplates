@@ -2,4 +2,8 @@
 <view id='wechat_share'>
   <button open-type="share">点击分享</button>
   <button bindtap="shareImage">点击生成图片</button>
+
+  <view class="canvas-box">
+      <canvas canvas-id="myCanvas" style="width:100%;height:{{windowHeight}}px;"></canvas>
+    </view>
 </view>
