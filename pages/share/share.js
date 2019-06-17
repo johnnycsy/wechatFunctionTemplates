@@ -9,7 +9,7 @@ Page({
   data: {
     portrait_temp: '',
     bgPath: '../../utils/image/bg.png',
-    qrcode_temp: '../../utils/image/qr.png',
+    wechatHeader: '../../utils/image/qr.png',
     windowWidth: 400,
     windowHeight: 600,
     qrcode_temp: '../../utils/image/qr.png',
@@ -23,11 +23,26 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-
+    
     wx.getSystemInfo({
       success(res) {
         that.windowWidth = res.windowWidth;
         that.windowHeight = res.windowHeight;
+      }
+    })
+
+    let userInfo = app.globalData.userInfo
+    console.log(userInfo)
+    wx.downloadFile({
+      url: userInfo.avatarUrl, //仅为示例，并非真实的资源
+      success(res) {
+        if (res.statusCode === 200) {
+          let image = res.tempFilePath
+          console.log(image)
+          that.setData({
+            wechatHeader : image
+          })         
+        }
       }
     })
 
@@ -115,9 +130,9 @@ Page({
     ctx.setFillStyle('#EEEEEE')
     ctx.fill()
     ctx.clip()
-    ctx.drawImage(qrPath, w * 0.1, h * 0.05, 80, 80)
+    ctx.drawImage(that.data.wechatHeader, w * 0.1, h * 0.05, 80, 80)
     ctx.restore()
-
+    console.log(that.data.wechatHeader)
     //生成用户ID / 文字
     ctx.setFillStyle('#000000')
     ctx.setFontSize(12)
