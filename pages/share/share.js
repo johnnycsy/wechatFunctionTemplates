@@ -34,7 +34,7 @@ Page({
     let userInfo = app.globalData.userInfo
     console.log(userInfo)
     wx.downloadFile({
-      url: userInfo.avatarUrl, //仅为示例，并非真实的资源
+      url: userInfo.avatarUrl,
       success(res) {
         if (res.statusCode === 200) {
           let image = res.tempFilePath
