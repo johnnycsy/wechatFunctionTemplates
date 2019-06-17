@@ -8,11 +8,11 @@ Page({
    */
   data: {
     portrait_temp: '',
-    bgPath: '../../../utils/image/background.jpg',
-    qrcode_temp: '../../../utils/image/qr.png',
+    bgPath: '../../utils/image/bg.png',
+    qrcode_temp: '../../utils/image/qr.png',
     windowWidth: 400,
     windowHeight: 600,
-    qrcode_temp: '../../../utils/image/qr.png',
+    qrcode_temp: '../../utils/image/qr.png',
   },
 
   /**
@@ -23,6 +23,14 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
+
+    wx.getSystemInfo({
+      success(res) {
+        that.windowWidth = res.windowWidth;
+        that.windowHeight = res.windowHeight;
+      }
+    })
+
   },
 
   /**
@@ -93,37 +101,39 @@ Page({
     var hostNickname = 'test'
 
     var qrPath = that.data.qrcode_temp
-    var windowWidth = that.data.windowWidth
+    var w = that.data.windowWidth
+    var h=that.data.windowHeight
     that.setData({
       scale: 1.6
     })
     //绘制背景图片
-    ctx.drawImage(bgPath, 0, 0, windowWidth, that.data.scale * windowWidth)
+    ctx.drawImage(bgPath, w * 0.025, h*0.025, w*0.95, h*0.95)
 
-    //绘制头像
-    ctx.save()
-    ctx.beginPath()
-    ctx.arc(windowWidth / 2, 0.32 * windowWidth, 0.15 * windowWidth, 0, 2 * Math.PI)
-    ctx.clip()
-    ctx.drawImage(portraitPath, 0.7 * windowWidth / 2, 0.17 * windowWidth, 0.3 * windowWidth, 0.3 * windowWidth)
-    ctx.restore()
-    //绘制第一段文本
-    ctx.setFillStyle('#ffffff')
-    ctx.setFontSize(0.037 * windowWidth)
-    ctx.setTextAlign('center')
-    ctx.fillText(hostNickname + ' 正在参加疯狂红包活动', windowWidth / 2, 0.52 * windowWidth)
-    //绘制第二段文本
-    ctx.setFillStyle('#ffffff')
-    ctx.setFontSize(0.037 * windowWidth)
-    ctx.setTextAlign('center')
-    ctx.fillText('邀请你一起来领券抢红包啦~', windowWidth / 2, 0.57 * windowWidth)
+    //生成头像/logo
+    ctx.drawImage(qrPath, w*0.1, w*0.1, 80, 80)
+
+    //生成用户ID / 文字
+    ctx.setFillStyle('#000000')
+    ctx.setFontSize(12)
+    ctx.setTextAlign('left')
+    ctx.fillText('这里显示用户ID', w*0.32, h*0.1)
+
+    ctx.setFillStyle('#000000')
+    ctx.setFontSize(12)
+    ctx.setTextAlign('left')
+    ctx.fillText('喜欢的好物，分享给你', w * 0.32, h * 0.15)
+
+    //生成商品图片
+    ctx.drawImage('../../utils/image/product.png', w*0.1, h*0.25, w * 0.8, h*0.47)
+
     //绘制二维码
-    ctx.drawImage(qrPath, 0.64 * windowWidth / 2, 0.75 * windowWidth, 0.36 * windowWidth, 0.36 * windowWidth)
-    //绘制第三段文本
-    ctx.setFillStyle('#ffffff')
-    ctx.setFontSize(0.037 * windowWidth)
+    ctx.drawImage(qrPath, w*0.55, h*0.75, 80, 80)
+    //点击识别查看商品
+    ctx.setFillStyle('#000000')
+    ctx.setFontSize(12)
     ctx.setTextAlign('center')
-    ctx.fillText('长按二维码领红包', windowWidth / 2, 1.36 * windowWidth)
+    ctx.fillText('长按识别查看商品', w * 0.65, h * 0.92)
+
     ctx.draw();
   },
   canvasToImage() {
