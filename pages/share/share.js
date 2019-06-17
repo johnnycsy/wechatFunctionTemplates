@@ -109,8 +109,14 @@ Page({
     //绘制背景图片
     ctx.drawImage(bgPath, w * 0.025, h*0.025, w*0.95, h*0.95)
 
-    //生成头像/logo
-    ctx.drawImage(qrPath, w*0.1, w*0.1, 80, 80)
+    //生成头像/logo     
+    ctx.save()   
+    ctx.arc(w * 0.2, h * 0.12, 45, 0, 2 * Math.PI)
+    ctx.setFillStyle('#EEEEEE')
+    ctx.fill()
+    ctx.clip()
+    ctx.drawImage(qrPath, w * 0.1, h * 0.05, 80, 80)
+    ctx.restore()
 
     //生成用户ID / 文字
     ctx.setFillStyle('#000000')
