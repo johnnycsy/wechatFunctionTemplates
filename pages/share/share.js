@@ -9,7 +9,7 @@ Page({
   data: {
     portrait_temp: '',
     bgPath: '../../utils/image/bg.png',
-    wechatHeader: '../../utils/image/qr.png',
+    wechatHeader: '',
     windowWidth: 400,
     windowHeight: 600,
     qrcode_temp: '../../utils/image/qr.png',
